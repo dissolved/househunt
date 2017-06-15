@@ -3,8 +3,7 @@
 import os
 import hashlib
 import urllib
-import urllib2
-import StringIO
+import io
 import csv
 import requests
 import searchresults
@@ -563,7 +562,7 @@ class ZillAPI(object):
         zurl = "%s?%s" % (ZillAPI.ZIL_URL, urlparams)
         req = requests.get(zurl)
         req_content = req.content
-        req_content_str = StringIO.StringIO(req_content)
+        req_content_str = io.StringIO(req_content)
         sr = searchresults.parse(req_content_str, silence=True)
         return sr
 
@@ -668,7 +667,7 @@ class RFAPI(object):
             req = urllib2.Request(dl_url, headers=headers)
             browse = urllib2.urlopen(req)
             csv_str = browse.read()
-            csv_f = StringIO.StringIO(csv_str)
+            csv_f = io.StringIO(csv_str)
             reader = csv.reader(csv_f, delimiter=',')
             headers = reader.next()
             for row in reader:
