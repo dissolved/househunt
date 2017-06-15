@@ -434,10 +434,9 @@ class Listing(object):
         days_on_market=None,
         status=None
     ):
-        if ((list_price is None) or (self.list_price <= list_price)) and
-                    ((zestimate is None) or (self.zestimate <= zestimate)) and
-                    ((days_on_market is None) or
-                    (self.days_on_market <= days_on_market)):
+        if ((list_price is None) or (self.list_price <= list_price))\
+        and ((zestimate is None) or (self.zestimate <= zestimate))\
+        and ((days_on_market is None) or (self.days_on_market <= days_on_market)):
             if status:
                 if (status is None) or (self.status == status):
                     return True
