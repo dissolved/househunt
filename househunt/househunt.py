@@ -7,14 +7,12 @@ import urllib2
 import StringIO
 import csv
 import requests
-import xmltodict
 import searchresults
 
 from tinydb import TinyDB, Query
-
 from datetime import datetime, timedelta
-
 from fake_useragent import UserAgent
+
 
 class House(object):
     """
@@ -34,7 +32,7 @@ class House(object):
         lot_size=None,
         home_type=None
     ):
-        self.street_address=street_address
+        self.street_address = street_address
         self.city = city
         self.state = state
         self.zip_code = zip_code
@@ -47,11 +45,14 @@ class House(object):
         self.home_type = home_type
 
     def __repr__(self):
-        return "%s %s, %s %s" % (self.street_address, self.city, self.state, self.zip_code)
+        return "%s %s, %s %s" % (self.street_address, self.city,
+                                 self.state, self.zip_code)
 
     @property
     def detailed(self):
-        detail_string = "Address: %s\nHome Type: %s\nBeds: %s\nBaths: %s\nSqFt: %s\nLot Size: %s\nParking Spaces: %s\nParking Type: %s\n"
+        detail_string = "Address: %s\nHome Type: %s\nBeds: %s\n"\
+                        "Baths: %s\nSqFt: %s\nLot Size: %s\n"\
+                        "Parking Spaces: %s\nParking Type: %s\n"
         return detail_string % (
             str(self),
             self.home_type,
@@ -220,7 +221,11 @@ class House(object):
         parking=None,
         lot_size=None
     ):
-        if ((beds is None) or (self.beds >= beds)) and ((baths is None) or (self.baths >= baths)) and ((sq_ft is None) or (self.sq_ft >= sq_ft)) and ((parking is None) or (self.parking >= parking)) and ((lot_size is None) or (self.lot_size >= lot_size)):
+        if ((beds is None) or (self.beds >= beds)) and ((baths is None)
+                        or (self.baths >= baths)) and ((sq_ft is None)
+                        or (self.sq_ft >= sq_ft)) and ((parking is None)
+                        or (self.parking >= parking)) and ((lot_size is None)
+                        or (self.lot_size >= lot_size)):
             return True
         else:
             return False
@@ -255,11 +260,14 @@ class Listing(object):
         self.open_house_end_time = open_house_end_time
 
     def __repr__(self):
-        return "Address: %s - List Price: %s - Zestimate: %s" % (str(self.house), str(self.list_price), str(self.zestimate))
+        return "Address: %s - List Price: %s - Zestimate: %s" %\
+                (str(self.house), str(self.list_price), str(self.zestimate))
 
     @property
     def detailed(self):
-        detail_string = "House Details:\n%s\nStatus: %s\nList Price: %s\nZestimate: %s\nMLS ID: %s\nDays on Market: %s\nOriginal Price: %s\nOpen House: %s - %s to %s\n\n"
+        detail_string = "House Details:\n%s\nStatus: %s\nList Price: %s\n"\
+                        "Zestimate: %s\nMLS ID: %s\nDays on Market: %s\n"\
+                        "Original Price: %s\nOpen House: %s - %s to %s\n\n"
         return detail_string % (
             self.house.detailed,
             self.status,
@@ -427,7 +435,10 @@ class Listing(object):
         days_on_market=None,
         status=None
     ):
-        if ((list_price is None) or (self.list_price <= list_price)) and ((zestimate is None) or (self.zestimate <= zestimate)) and ((days_on_market is None) or (self.days_on_market <= days_on_market)):
+        if ((list_price is None) or (self.list_price <= list_price)) and
+                    ((zestimate is None) or (self.zestimate <= zestimate)) and
+                    ((days_on_market is None) or
+                    (self.days_on_market <= days_on_market)):
             if status:
                 if (status is None) or (self.status == status):
                     return True
