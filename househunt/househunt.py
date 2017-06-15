@@ -310,7 +310,7 @@ class Listing(object):
         if is_float(zestimate):
             zestimate = float(zestimate)
         elif is_int(zestimate):
-            zestimate = int(zestimaet)
+            zestimate = int(zestimate)
         self._zestimate = zestimate
 
     @property
