@@ -40,7 +40,7 @@ Class that describes a house and its physical details.
 #### Example Usage
 
 ```
->>> from house import House
+>>> from househunt import House
 >>> h = House()
 >>> print h
 None None, None None
